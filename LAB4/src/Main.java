@@ -8,58 +8,59 @@ public class Main {
     public static Set<Hospital> hospitalSet = new TreeSet<>();
     public static List<Resident> residentList = new ArrayList<>();
 
-    public static void declareHospitals(){
-        int numberOfHospitals = 0 ;
-        while(numberOfHospitals == 0) {
+    public static void declareHospitals() {
+        int numberOfHospitals = 0;
+        while (numberOfHospitals == 0) {
             numberOfHospitals = (int) (Math.random() * 7);
         }
 
-        for(int i = 0; i < numberOfHospitals; i++){
+        for (int i = 0; i < numberOfHospitals; i++) {
             Faker faker = new Faker();
             String name = faker.name().fullName();
             Hospital hospital = new Hospital(name, (int) (Math.random() * 10));
             hospitalSet.add(hospital);
         }
     }
-    public static void declareResidents(){
-        int numberOfResidents = 0 ;
-        while(numberOfResidents == 0) {
+
+    public static void declareResidents() {
+        int numberOfResidents = 0;
+        while (numberOfResidents == 0) {
             numberOfResidents = (int) (Math.random() * 70);
         }
 
-        for(int i = 0; i < numberOfResidents; i++){
+        for (int i = 0; i < numberOfResidents; i++) {
             Faker faker = new Faker();
             String name = faker.name().fullName();
             Resident residence = new Resident(name);
             residentList.add(residence);
         }
     }
-    public static void hospitalPreferences(){
+
+    public static void hospitalPreferences() {
         List<Resident> assignedResidents = new ArrayList<>();
-        for(Hospital hospital : hospitalSet){
+        for (Hospital hospital : hospitalSet) {
             int randomNumber = (int) (Math.random() * 10);
-            for(int i = 0; i< randomNumber; i++)
-            {
+            for (int i = 0; i < randomNumber; i++) {
                 Resident randomResident = residentList.get((int) (Math.random() * (residentList.size() - 1)));
-                while(assignedResidents.contains(randomResident)){
+                while (assignedResidents.contains(randomResident)) {
                     randomResident = residentList.get((int) (Math.random() * 70));
                 }
                 hospital.addPreferences(randomResident);
             }
         }
     }
-    public static void residentPreferences(){
+
+    public static void residentPreferences() {
         List<Hospital> assignedHospitals = new ArrayList<>();
         List<Hospital> hospitals = new ArrayList<>();
-        for(Hospital hospital : hospitalSet){
+        for (Hospital hospital : hospitalSet) {
             hospitals.add(hospital);
         }
-        for(Resident resident : residentList){
+        for (Resident resident : residentList) {
             int randomNumber = (int) (Math.random() * 5);
-            for(int i = 0; i< randomNumber; i++)
-            {
+            for (int i = 0; i < randomNumber; i++) {
                 Hospital randomHospital = hospitals.get((int) (Math.random() * (hospitals.size() - 1)));
-                while(assignedHospitals.contains(randomHospital)){
+                while (assignedHospitals.contains(randomHospital)) {
                     randomHospital = hospitals.get((int) (Math.random() * 7));
                 }
                 resident.addPreferences(randomHospital);
@@ -80,7 +81,7 @@ public class Main {
 
         matching.printSolution();
 
-        if(matching.stable()){
+        if (matching.stable()) {
             System.out.println("The solution is stable");
         } else {
             System.out.println("The solution is unstable");

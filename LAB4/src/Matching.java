@@ -24,22 +24,21 @@ public class Matching {
         return solution;
     }
 
-    public void printSolution(){
-        solution.entrySet().forEach(entry->{
+    public void printSolution() {
+        solution.entrySet().forEach(entry -> {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         });
     }
 
-    public void solution(){
+    public void solution() {
         List<Resident> assignedResidents = new ArrayList<>();
-        for ( Hospital hospital : problem.getHospital()) {
+        for (Hospital hospital : problem.getHospital()) {
             int residentsNumber = 0;
             List<Resident> residentsOfHospital = new ArrayList<>();
-            for(Resident resident : hospital.getPreferences()){
-                if(residentsNumber < hospital.getCapacity()){
+            for (Resident resident : hospital.getPreferences()) {
+                if (residentsNumber < hospital.getCapacity()) {
                     residentsNumber++;
-                    if(!assignedResidents.contains(resident))
-                    {
+                    if (!assignedResidents.contains(resident)) {
                         assignedResidents.add(resident);
                         residentsOfHospital.add(resident);
                     }
@@ -49,16 +48,16 @@ public class Matching {
         }
     }
 
-    public boolean stable(){
-        for(Resident resident : problem.getResidents()){
-                for(Hospital hospital : resident.getPreferences()){
-                    if(solution.get(hospital).contains(resident)){
-                        break;
-                    } else {
-                        if(solution.get(hospital).size() < hospital.getCapacity())
-                            return false;
-                    }
+    public boolean stable() {
+        for (Resident resident : problem.getResidents()) {
+            for (Hospital hospital : resident.getPreferences()) {
+                if (solution.get(hospital).contains(resident)) {
+                    break;
+                } else {
+                    if (solution.get(hospital).size() < hospital.getCapacity())
+                        return false;
                 }
+            }
         }
         return true;
     }
