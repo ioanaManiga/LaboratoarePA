@@ -38,7 +38,19 @@ public class ControlPanel extends JPanel {
 
     private void save(ActionEvent e) {
         try {
-            ImageIO.write(frame.canvas.image, "PNG", new FileOutputStream("C:/Users/MEOWANA/Desktop/JAVA/drawing.png"));
+            JFileChooser chooser = new JFileChooser();
+            int returnValue = chooser.showSaveDialog(null);
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = chooser.getSelectedFile();
+                String filePath = fileToSave.getPath();
+                String extension = new String();
+                int i = filePath.lastIndexOf('.');
+                if (i > 0) {
+                    extension = filePath.substring(i + 1);
+                }
+                ImageIO.write(frame.canvas.image, extension,
+                        fileToSave);
+            }
         } catch (IOException ex) {
             System.err.println(ex);
         }
@@ -47,8 +59,12 @@ public class ControlPanel extends JPanel {
     private void load(ActionEvent e) {
         try {
             JFileChooser chooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG Images", "png");
-            chooser.setFileFilter(filter);
+            FileNameExtensionFilter filter1 = new FileNameExtensionFilter("png", "png");
+            FileNameExtensionFilter filter2 = new FileNameExtensionFilter("jpeg", "jpeg");
+            FileNameExtensionFilter filter3 = new FileNameExtensionFilter("gif", "gif");
+            chooser.addChoosableFileFilter(filter1);
+            chooser.addChoosableFileFilter(filter2);
+            chooser.addChoosableFileFilter(filter3);
             int returnValue = chooser.showOpenDialog(null);
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 BufferedImage image = ImageIO.read(new File(chooser.getSelectedFile().getPath()));
