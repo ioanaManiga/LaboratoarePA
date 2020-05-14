@@ -32,6 +32,7 @@ public class DesignPanel extends JPanel {
             method.invoke(element, text);
         }
         add((Component) element);
+        this.revalidate();
     }
 
     @Override
