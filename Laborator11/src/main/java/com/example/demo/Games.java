@@ -8,18 +8,18 @@ import java.util.Objects;
 
 @Entity
 public class Games {
-    private short id;
+    private int id;
     private String content;
     private String result;
     private Long playersNumber;
 
     @Id
     @Column(name = "ID")
-    public short getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(short id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(path = "/api")
-public class MainController {
+@RequestMapping(path = "/api/players")
+public class PlayerController {
     @Autowired
     private GamesRepository gamesRepository;
 
