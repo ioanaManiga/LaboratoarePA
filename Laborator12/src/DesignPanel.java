@@ -27,9 +27,11 @@ public class DesignPanel extends JPanel {
     public void createComponent(String name, String text) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
         Class clazz = Class.forName(name);
         Object element = clazz.getConstructor().newInstance();
-        Method method = clazz.getMethod("setText", String.class);
-        if (method != null) {
+        try {
+            Method method = clazz.getMethod("setText", String.class);
             method.invoke(element, text);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
         }
         add((Component) element);
         this.revalidate();
